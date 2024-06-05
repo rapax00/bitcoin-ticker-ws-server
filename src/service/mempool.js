@@ -14,4 +14,15 @@ async function getLastBlock() {
     }
 }
 
-module.exports = { getLastBlock };
+async function getMediumFee() {
+    try {
+        const { bitcoin } = mempoolJS();
+        const feesMempoolBlocks = await bitcoin.fees.getFeesRecommended();
+        return feesMempoolBlocks.halfHourFee.toString();
+    } catch (error) {
+        console.error("Error fetching latest block:", error);
+        return null;
+    }
+}
+
+module.exports = { getLastBlock, getMediumFee };

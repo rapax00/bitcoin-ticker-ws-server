@@ -1,5 +1,5 @@
 const WebSocket = require("ws");
-const { getLastBlock } = require("./service/mempool.js");
+const { getLastBlock, getMediumFee } = require("./service/mempool.js");
 const {
     getPrice,
     closeConnectionCoinbaseWebSocket,
@@ -40,6 +40,7 @@ wss.on("connection", (ws) => {
                     JSON.stringify({
                         lastBlock: await getLastBlock(),
                         price: await getPrice(),
+                        mediumFee: await getMediumFee(),
                     })
                 );
             } catch (error) {
